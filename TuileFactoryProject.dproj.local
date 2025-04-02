@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/05/14 10:49:55.000.180,=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2024/06/25 15:30:33.000.394,=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2025/03/10 17:36:34.000.901,=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2025/03/28 09:02:14.502,=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2025/03/28 09:03:15.999,=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Unit2.pas</Transaction>
+    <Transaction>2025/03/28 09:43:55.209,C:\Git\Delphi\TuileBarFactory\uMain.dfm=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Unit1.dfm</Transaction>
+    <Transaction>2025/03/28 09:43:55.209,C:\Git\Delphi\TuileBarFactory\uMain.pas=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Unit1.pas</Transaction>
+    <Transaction>2025/03/28 09:44:07.865,C:\Git\Delphi\TuileBarFactory\uTuilleInterf.pas=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Unit2.pas</Transaction>
+    <Transaction>2025/03/28 09:44:17.511,C:\Git\Delphi\TuileBarFactory\TuileFactoryProject.dproj=C:\Users\PAAL\Documents\Embarcadero\Studio\Projets\Project1.dproj</Transaction>
+    <Transaction>2025/03/28 11:15:37.591,=C:\Git\Delphi\TuileBarFactory\Unit1.pas</Transaction>
+    <Transaction>2025/03/28 12:33:38.429,C:\Git\Delphi\TuileBarFactory\uTuilleDevExpress.pas=C:\Git\Delphi\TuileBarFactory\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
