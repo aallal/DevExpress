@@ -26,7 +26,7 @@ type
   protected
      FItems : TObjectDictionary<string ,ITuileItem>   ;
      function  fGetTuileItemByID(aTuileID : Integer  ) : ITuileItem ;
-     procedure pAddTuile(var InfosTuile : TInfoTuile ; Event : TTuileItemEvent ) ;
+     procedure pAddTuileItem(var InfosTuile : TInfoTuile ; Event : TTuileItemEvent ) ;
   public
     constructor Create(const Owner : TComponent; const parent : TWinControl );
     destructor Destroy; override;
@@ -83,8 +83,6 @@ type
 //function  _TColorsOfdxTuile(BorderColor, GradientBeginColor ,  GradientEndColor : TColor) :  TColorsOfdxTuile ;
 
 var
-
-
  // Declare and initialize a constant array of records
   _Colors : array[0..5] of TColorsOfdxTuile = (
     (BorderColor: $00804000; GradientBeginColor:$20BA5C22  ;   GradientEndColor :$00F58B4B ),
@@ -100,7 +98,8 @@ implementation
 
 uses
   dxSkinsCore,
-  System.SysUtils
+  System.SysUtils ,
+  System.Math
 ;
 
 function TdxTuilePanel.AsdxTileControl: TdxTileControl;
@@ -120,8 +119,6 @@ begin
    begin
       Left := 0  ;
       Top  := 70   ;
-//      Width = 980 ;
-//      Height = 157 ;
       Margins.Left  := 2  ;
       Margins.Top   := 2  ;
       Margins.Right := 2 ;
@@ -140,7 +137,7 @@ begin
    var  NewGroup: TdxTileControlGroup;
    NewGroup := FTileControl.CreateGroup;
    NewGroup.Index := 0;  // Set position
-   NewGroup.Caption.Text := 'New Group';
+   NewGroup.Caption.Text := 'Priorités';
 
 end;
 
@@ -176,7 +173,7 @@ begin
 
 end;
 
-procedure TdxTuilePanel.pAddTuile(var InfosTuile: TInfoTuile; Event: TTuileItemEvent);
+procedure TdxTuilePanel.pAddTuileItem(var InfosTuile: TInfoTuile; Event: TTuileItemEvent);
 begin
   var vTuileItem : TdxTuileItem ;
   vTuileItem := TdxTuileItem.Create(Self,InfosTuile , event) ;
@@ -197,7 +194,14 @@ begin
   var idxColor : Integer;
 
   Self.OnClick :=  Event;
-  FdxTileControlItem := TdxTuilePanel(owner).TileControl.CreateItem(tcisRegular, vdxTileControlGroup1);
+
+  var ASize: TdxTileControlItemSize ;
+  if  InfosTuile.Size = stRegular then
+    ASize :=  tcisRegular
+  else
+    ASize :=  tcisSmall  ;
+
+  FdxTileControlItem := TdxTuilePanel(owner).TileControl.CreateItem(ASize , vdxTileControlGroup1);
   With FdxTileControlItem Do
     begin
       Name :=   InfosTuile.name;
@@ -284,7 +288,7 @@ end;
 function TdxTuilePanelFactory.CreateTuileItem( const TuilePanel: ITuilePanel;
                          InfosTuile : TInfoTuile ; Event : TTuileItemEvent): ITuileItem;
 begin
- // result := TdxTuileItem.Create(TuilePanel , InfosTuile , event);
+  TuilePanel.pAddTuileItem(InfosTuile , Event);
 end;
 
 function TdxTuilePanelFactory.CreateTuilePanel(const Owner : TComponent; const parent : TWinControl): ITuilePanel;
@@ -307,7 +311,6 @@ begin
 
   var vi : Smallint ;
   var  viSeq  : Smallint ;
-  var vsDesPrio : String  := '';
   var vInfosTuile : TInfoTuile  ;
 
   for vi := 0 to Items.Count-1  do
@@ -317,29 +320,43 @@ begin
 
     if viSeq <0  then
       Continue ;
-    vsDesPrio :=  Items[vi];
+
     vInfosTuile.name :='item_tuile'+viSeq.ToString;
     vInfosTuile.ID := viSeq ;
     vInfosTuile.Text1 :=  'Priorité' ;
     vInfosTuile.Text2  :=   Random(10).ToString ;
-    vInfosTuile.Text3  :=vsDesPrio;
+    vInfosTuile.Text3  :=Items[vi];
+    vInfosTuile.Size  :=stRegular;  //StSmall
 
-    FTuilePanel.pAddTuile(vInfosTuile ,  CallBack ) ;
-//    FFactory.CreateTuileItem(FTuilePanel , vInfosTuile ,  CallBack) ;
+    FFactory.CreateTuileItem( Self.FTuilePanel, vInfosTuile , CallBack);
   end;
-//
-//  FButton.OnClick :=
-//    procedure
-//    begin
-//      FListbox.Add(FEdit.GetText);
-//    end;
+
+  Inc(viSeq);
+  vInfosTuile.name :='item_tuile'+viSeq.ToString;
+  vInfosTuile.ID := viSeq ;
+  vInfosTuile.Text1 :=  'Exit' ;
+  vInfosTuile.Text2  :=  '';
+  vInfosTuile.Text3  := '';
+  vInfosTuile.Size  :=stSmall;
+  FFactory.CreateTuileItem( Self.FTuilePanel, vInfosTuile , CallBack);
+
+  Inc(viSeq);
+  vInfosTuile.name :='item_tuile'+viSeq.ToString;
+  vInfosTuile.ID := viSeq ;
+  vInfosTuile.Text1 :=  'Refresh' ;
+  vInfosTuile.Text2  :=  '';
+  vInfosTuile.Text3  := '';
+  vInfosTuile.Size  :=stSmall;
+  FFactory.CreateTuileItem( Self.FTuilePanel, vInfosTuile , CallBack);
+
+
 end;
 
-function  _TColorsOfdxTuile(BorderColor, GradientBeginColor ,  GradientEndColor : TColor) :   TColorsOfdxTuile ;
-begin
-  Result.BorderColor :=  BorderColor ;
-  Result.GradientBeginColor :=  GradientBeginColor ;
-  Result.GradientEndColor :=  GradientEndColor ;
-end;
+//function  _TColorsOfdxTuile(BorderColor, GradientBeginColor ,  GradientEndColor : TColor) :   TColorsOfdxTuile ;
+//begin
+//  Result.BorderColor :=  BorderColor ;
+//  Result.GradientBeginColor :=  GradientBeginColor ;
+//  Result.GradientEndColor :=  GradientEndColor ;
+//end;
 
 end.

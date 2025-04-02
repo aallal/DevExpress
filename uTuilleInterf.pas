@@ -9,6 +9,8 @@ uses
   ;
 
 Type
+  TSizeTuile = (stRegular , stSmall ) ;
+
   /// <summary>
   /// Information pour créer une tuile
   /// </summary>
@@ -18,6 +20,7 @@ Type
     Text1 : string ;
     Text2 : string ;
     Text3 : string ;
+    Size   : TSizeTuile  ;
   End;
 
 
@@ -47,7 +50,7 @@ Type
   // Interface de type panel de tuile  : TdxTileControl pour une implémentation en devEXpress
   ITuilePanel = Interface['{50A04DBD-CEF0-4E19-BC36-993757890554}']
       function  fGetTuileItemByID(aTuileID : Integer  ) : ITuileItem ;
-      procedure pAddTuile(var InfosTuile : TInfoTuile ; Event : TTuileItemEvent ) ;
+      procedure pAddTuileItem(var InfosTuile : TInfoTuile ; Event : TTuileItemEvent ) ;
   End;
 
   // Interface Fabrique du  panel de tuile
@@ -55,9 +58,6 @@ Type
     function CreateTuilePanel(const Owner : TComponent; const parent : TWinControl) : ITuilePanel;
     function CreateTuileItem(const TuilePanel: ITuilePanel ;InfosTuile : TInfoTuile ; Event : TTuileItemEvent): ITuileItem;
   end;
-
-
-
 
 implementation
 
